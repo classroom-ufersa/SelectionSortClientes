@@ -21,14 +21,14 @@ Cliente *cadastrarCliente(Cliente* cliente){
     return cliente;
 }
 
-void receberDadosDoArquivo(Cliente ** cliente){
+void receberDadosDoArquivo(Cliente ** cliente,FILE*arquivo){
 // carregar dados do arquivo
     int contadorClientes=0;
     char linha[100];
-    for(contadorClientes=0;fgets(linha,sizeof(linha),"clientes.txt")!=NULL;contadorClientes++){
+    for(contadorClientes=0;fgets(linha,sizeof(linha),arquivo)!=NULL;contadorClientes++){
         cliente=(Cliente**)realloc(cliente,(contadorClientes+1)*sizeof(Cliente*));
         cliente[contadorClientes]=(Cliente*)malloc((contadorClientes+1)*sizeof(Cliente));
-        fscanf("clientes.txt"," %50[^,],%50[^,],%d\n", cliente[contadorClientes]->nome, cliente[contadorClientes]->endereco, &cliente[contadorClientes]->codigoCliente);
+        fscanf(arquivo," %s,%s,%d\n", cliente[contadorClientes]->nome, cliente[contadorClientes]->endereco, &cliente[contadorClientes]->codigoCliente);
     }
 // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente) 
 }
