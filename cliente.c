@@ -35,8 +35,6 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
     // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
 }
 
-
-
 void selectionSort(Cliente **clientes, int *contadorClientes)
 {
     char nomeTemporario[100];
