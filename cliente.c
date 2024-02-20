@@ -40,10 +40,10 @@ void selectionSort(Cliente **clientes, int *contadorClientes)
     char nomeTemporario[100];
     int i = 0, j = 0;
     int primeiro = 0;
-    for (i = 0; i < contadorClientes + 1; i++)
+    for (i = 0; i < *contadorClientes + 1; i++)
     {
         primeiro = i;
-        for (j = i + 1; j < contadorClientes; j++)
+        for (j = i + 1; j < *contadorClientes; j++)
         {
             if (strcmp(clientes[j]->nome, clientes[primeiro]->nome) < 0)
             {
