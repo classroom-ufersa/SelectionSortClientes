@@ -2,8 +2,8 @@
 typedef struct Clientes Cliente;
 
 
-/*Funcao que cadastra Cliente e retorna um vetor de estrutura Cliente*/
-Cliente*cadastrarCliente(Cliente* cliente);
+/*Função que cadastra cliente quando o arquivo estiver vazio!*/
+void escreverNoArquivo(Cliente *cliente,FILE *arquivo);
 
 
 /*Funcao que recebe os dados do arquivo txt*/
