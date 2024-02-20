@@ -10,8 +10,8 @@ struct Clientes
     int codigoCliente;
 };
 
-Cliente *cadastrarCliente(Cliente *cliente)
-{
+void escreverNoArquivo(Cliente *cliente,FILE *arquivo)
+{   
     cliente = (Cliente *)malloc(sizeof(Cliente));
     printf("Insira o seu nome:\n");
     scanf(" %[^\n]s", cliente->nome);
@@ -19,18 +19,26 @@ Cliente *cadastrarCliente(Cliente *cliente)
     scanf(" %[^\n]s", cliente->endereco);
     printf("Insira o seu codigo:\n");
     scanf("%d", &cliente->codigoCliente);
-    return cliente;
+    // qual estrutura?
+    fprintf(arquivo,"%s",cliente->nome);
 }
 
 void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClientes)
 {
     // carregar dados do arquivo
     char linha[100];
-    for (*contadorClientes = 0; fgets(linha, sizeof(linha), arquivo) != NULL; *contadorClientes++)
+    if(fgets(linha,sizeof(linha),arquivo)==EOF)
     {
-        cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
-        cliente[(*contadorClientes)] = (Cliente *)malloc((*contadorClientes + 1) * sizeof(Cliente));
-        fscanf(arquivo, " %[^,],%[^,],%d\n", cliente[(*contadorClientes)]->nome, cliente[(*contadorClientes)]->endereco, &cliente[(*contadorClientes)]->codigoCliente);
+        *contadorClientes=0;
+        escreverNoArquivo(cliente[*contadorClientes],arquivo);
+    }else
+    {
+        for (*contadorClientes = 0; fgets(linha, sizeof(linha), arquivo) != NULL; *contadorClientes++)
+        {   
+            cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
+            cliente[(*contadorClientes)] = (Cliente *)malloc((*contadorClientes + 1) * sizeof(Cliente));
+            fscanf(arquivo, " %[^,],%[^,],%d\n", cliente[(*contadorClientes)]->nome, cliente[(*contadorClientes)]->endereco, &cliente[(*contadorClientes)]->codigoCliente);
+        }
     }
     // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
 }
@@ -58,6 +66,7 @@ void selectionSort(Cliente **clientes, int *contadorClientes)
         }
     }
 }
+
 // quando for receber o novo cliente precisa reallocar contador de clientes + 1 para poder criar um espeço para vetor novo
 // cliente=(Cliente**)realloc(cliente,(contadorClientes+1)*sizeof(Cliente*));
 // cliente[contadorClientes+1]=cadastrarCliente(cliente[contadorClientes+1]);
