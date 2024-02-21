@@ -29,7 +29,6 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
     char linha[100];
     if(fgets(linha,sizeof(linha),arquivo)==EOF)
     {
-        *contadorClientes=0;
         escreverNoArquivo(cliente[*contadorClientes],arquivo);
     }else
     {
