@@ -13,3 +13,10 @@ void receberDadosDoArquivo(Cliente ** cliente, FILE *arquivo, int *contadorClien
 
 /*Fucao que ordena os nomes dos clientes pelo metodo slectionSort*/
 void selectionSort(Cliente **clientes, int *contadorClientes);
+
+/*Imprime os dados dos clientes presentes no arquivo txt*/
+void imprimirNoArquivo(Cliente**cliente,FILE *arquivo ,int *contadorClientes);
+
+/*Libea memória do vetor de ponteiros cliente*/
+void liberarMemoria(Cliente **cliente, int contadorClientes);
+

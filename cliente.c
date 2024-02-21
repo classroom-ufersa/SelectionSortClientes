@@ -13,8 +13,9 @@ struct Clientes
 
 void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClientes)
 {
-    char linhasArquivo[100];
-    if(fgets(linhasArquivo,sizeof(linhasArquivo),arquivo)==EOF)
+    char* linhasArquivo;
+    size_t* tamanho;
+    if(getline(&linhasArquivo, &tamanho, arquivo) != -1)
     {
         cliente = (Cliente**) malloc(*contadorClientes+1*sizeof(Cliente*));
         receberCliente(cliente[*contadorClientes],arquivo,contadorClientes);
@@ -25,12 +26,14 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
         selectionSort(cliente,contadorClientes);
         imprimirNoArquivo(cliente,arquivo,contadorClientes);
     }
+    liberarMemoria(cliente, contadorClientes);
     // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
 }
 
 void receberDados(Cliente **cliente,FILE *arquivo,int *contadorClientes){
-    char linha[100];
-    for (*contadorClientes = 0; fgets(linha, sizeof(linha), arquivo) != NULL; *contadorClientes++)
+    char* linhasArquivo;
+    size_t* tamanho;
+    if (getline(&linhasArquivo, &tamanho, arquivo) != -1)
         {   
             cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
             cliente[(*contadorClientes)] = (Cliente *)malloc((*contadorClientes + 1) * sizeof(Cliente));
