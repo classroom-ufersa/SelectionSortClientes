@@ -16,6 +16,7 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
     char linhasArquivo[100];
     if(fgets(linhasArquivo,sizeof(linhasArquivo),arquivo)==EOF)
     {
+        cliente = (Cliente**) malloc(*contadorClientes+1*sizeof(Cliente*));
         receberCliente(cliente[*contadorClientes],arquivo,contadorClientes);
     }else
     {
@@ -83,6 +84,16 @@ void imprimirNoArquivo(Cliente**cliente,FILE *arquivo ,int *contadorClientes){
     for(index=0;index<(*contadorClientes);index++){
         fprintf(arquivo,"Nome: %s,Endereco: %s,Codigo do Cliente: %d\n", cliente[index]->nome, cliente[index]->endereco, &cliente[index]->codigoCliente);
     }
+}
+
+void liberarMemoria(Cliente **cliente, int contadorClientes){
+    int index = 0;
+    for (index = 0; index < contadorClientes; index++)
+    {
+        free(cliente[index]);
+    }
+    free(cliente);
+    
 }
 
 // quando for receber o novo cliente precisa reallocar contador de clientes + 1 para poder criar um espeço para vetor novo
