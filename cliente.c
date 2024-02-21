@@ -10,7 +10,7 @@ struct Clientes
     int codigoCliente;
 };
 
-void escreverNoArquivo(Cliente *cliente,FILE *arquivo)
+void escreverNoArquivo(Cliente *cliente,FILE *arquivo,int *contadorClientes)
 {   
     cliente = (Cliente *)malloc(sizeof(Cliente));
     printf("Insira o seu nome:\n");
@@ -19,8 +19,14 @@ void escreverNoArquivo(Cliente *cliente,FILE *arquivo)
     scanf(" %[^\n]s", cliente->endereco);
     printf("Insira o seu codigo:\n");
     scanf("%d", &cliente->codigoCliente);
-    // qual estrutura?
+    if (*contadorClientes == 0)
+    {
     fprintf(arquivo,"%s",cliente->nome);
+    }else{
+        selectionSort(cliente,contadorClientes);
+    }
+    
+    
 }
 
 void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClientes)
@@ -29,7 +35,7 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
     char linha[100];
     if(fgets(linha,sizeof(linha),arquivo)==EOF)
     {
-        escreverNoArquivo(cliente[*contadorClientes],arquivo);
+        escreverNoArquivo(cliente[*contadorClientes],arquivo,contadorClientes);
     }else
     {
         for (*contadorClientes = 0; fgets(linha, sizeof(linha), arquivo) != NULL; *contadorClientes++)
@@ -64,6 +70,10 @@ void selectionSort(Cliente **clientes, int *contadorClientes)
             }
         }
     }
+}
+
+void novoCliente(Cliente *cliente){
+    
 }
 
 // quando for receber o novo cliente precisa reallocar contador de clientes + 1 para poder criar um espeço para vetor novo
