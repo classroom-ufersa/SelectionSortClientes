@@ -5,6 +5,8 @@ typedef struct Clientes Cliente;
 /*Função que cadastra cliente quando o arquivo estiver vazio!*/
 void receberCliente(Cliente *cliente,FILE *arquivo,int *contadorClientes);
 
+/*Função que coloca os dados do arquivo em uma estrutura*/
+void receberDados(Cliente **cliente,FILE *arquivo,int *contadorClientes);
 
 /*Funcao que recebe os dados do arquivo txt*/
 void receberDadosDoArquivo(Cliente ** cliente, FILE *arquivo, int *contadorClientes);
