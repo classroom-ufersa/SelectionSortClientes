@@ -3,7 +3,7 @@ typedef struct Clientes Cliente;
 
 
 /*Função que cadastra cliente quando o arquivo estiver vazio!*/
-void escreverNoArquivo(Cliente *cliente,FILE *arquivo,int *contadorClientes);
+void receberCliente(Cliente *cliente,FILE *arquivo,int *contadorClientes);
 
 
 /*Funcao que recebe os dados do arquivo txt*/
