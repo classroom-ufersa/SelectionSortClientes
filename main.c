@@ -10,7 +10,7 @@ int main(){
     Cliente**cliente = NULL;
     int contadorCliente=0;
     int *pontContadorCliente=&contadorCliente;
-    receberDadosDoArquivo(cliente,arquivo,pontContadorCliente);
+    receberDadosDoArquivo(cliente, arquivo, pontContadorCliente);
     liberarMemoria(cliente, *pontContadorCliente);
     fclose(arquivo);
 return 0;
