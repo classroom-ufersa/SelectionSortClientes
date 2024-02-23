@@ -11,7 +11,7 @@ struct Clientes
 };
 
 
-void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes)
+void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes) 
 {
     char* linhasArquivo = NULL;
     size_t* tamanho = 0;
