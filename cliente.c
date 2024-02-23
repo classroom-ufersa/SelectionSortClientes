@@ -69,15 +69,16 @@ void selectionSort(Cliente **cliente, int *contadorClientes)
             {
                 primeiro = j;
             }
-            if (primeiro != i)
-            {
-                strcpy(nomeTemporario, cliente[i]->nome);
-                strcpy(cliente[i]->nome, cliente[j]->nome);
-                strcpy(cliente[j]->nome, nomeTemporario);
-            }
+        }
+        if (primeiro != i)
+        {
+            strcpy(nomeTemporario, cliente[i]->nome);
+            strcpy(cliente[i]->nome, cliente[primeiro]->nome);
+            strcpy(cliente[primeiro]->nome, nomeTemporario);
         }
     }
 }
+
 
 
 void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes){
