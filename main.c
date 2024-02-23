@@ -7,7 +7,7 @@ int main(){
         printf("Erro ao abrir o arquivo clientes.txt");
         exit(1);
     }
-    Cliente**cliente;
+    Cliente**cliente = NULL;
     int contadorCliente=0;
     int *pontContadorCliente=&contadorCliente;
     receberDadosDoArquivo(cliente,arquivo,pontContadorCliente);
