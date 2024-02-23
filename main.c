@@ -11,7 +11,7 @@ int main(){
     int contadorCliente=0;
     int *pontContadorCliente=&contadorCliente;
     receberDadosDoArquivo(cliente,arquivo,pontContadorCliente);
-    liberarMemoria(cliente,*pontContadorCliente);
+    liberarMemoria(cliente, *pontContadorCliente);
     fclose(arquivo);
 return 0;
 }

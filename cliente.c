@@ -3,19 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Clientes
-{
-    char nome[50];
-    char endereco[50];
-    int codigoCliente;
-};
 
-
-void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClientes)
+void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes)
 {
     char* linhasArquivo;
     size_t* tamanho;
-    if(getline(&linhasArquivo, &tamanho, arquivo) != -1)
+    if(getline(&linhasArquivo, tamanho, arquivo) == -1)
     {
         cliente = (Cliente**) malloc(*contadorClientes+1*sizeof(Cliente*));
         receberCliente(cliente[*contadorClientes],arquivo,contadorClientes);
@@ -30,10 +23,10 @@ void receberDadosDoArquivo(Cliente **cliente, FILE *arquivo, int *contadorClient
     // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
 }
 
-void receberDados(Cliente **cliente,FILE *arquivo,int *contadorClientes){
+void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes){
     char* linhasArquivo;
     size_t* tamanho;
-    if (getline(&linhasArquivo, &tamanho, arquivo) != -1)
+    if (getline(&linhasArquivo, tamanho, arquivo) != -1)
         {   
             cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
             cliente[(*contadorClientes)] = (Cliente *)malloc((*contadorClientes + 1) * sizeof(Cliente));
@@ -42,7 +35,7 @@ void receberDados(Cliente **cliente,FILE *arquivo,int *contadorClientes){
 }
 
 
-void receberCliente(Cliente *cliente,FILE *arquivo,int *contadorClientes)
+void receberCliente(Cliente *cliente,FILE* arquivo,int *contadorClientes)
 {   
     cliente = (Cliente *)malloc(sizeof(Cliente));
     printf("Insira o seu nome:\n");
@@ -82,7 +75,7 @@ void selectionSort(Cliente **cliente, int *contadorClientes)
 }
 
 
-void imprimirNoArquivo(Cliente**cliente,FILE *arquivo ,int *contadorClientes){
+void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes){
     int index=0;
     for(index=0;index<(*contadorClientes);index++){
         fprintf(arquivo,"Nome: %s,Endereco: %s,Codigo do Cliente: %d\n", cliente[index]->nome, cliente[index]->endereco, &cliente[index]->codigoCliente);
