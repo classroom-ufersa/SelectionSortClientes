@@ -29,8 +29,8 @@ void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClient
 }
 
 void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes){
-    char* linhasArquivo;
-    size_t* tamanho;
+    char* linhasArquivo = NULL;
+    size_t* tamanho = 0;
     if (getline(&linhasArquivo, tamanho, arquivo) != -1)
         {   
             cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
