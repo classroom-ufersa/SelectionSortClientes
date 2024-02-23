@@ -51,7 +51,7 @@ void receberCliente(Cliente *cliente,FILE* arquivo,int *contadorClientes)
     scanf("%d", &cliente->codigoCliente);
     if (*contadorClientes == 0)
     {
-    fprintf(arquivo," %s,%s,%d\n", cliente->nome, cliente->endereco, &cliente->codigoCliente);
+    fprintf(arquivo," %s,%s,%d\n", cliente->nome, cliente->endereco, cliente->codigoCliente);
     }
 }
 
@@ -83,7 +83,7 @@ void selectionSort(Cliente **cliente, int *contadorClientes)
 void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes){
     int index=0;
     for(index=0;index<(*contadorClientes);index++){
-        fprintf(arquivo,"Nome: %s,Endereco: %s,Codigo do Cliente: %d\n", cliente[index]->nome, cliente[index]->endereco, &cliente[index]->codigoCliente);
+        fprintf(arquivo,"Nome: %s,Endereco: %s,Codigo do Cliente: %d\n", cliente[index]->nome, cliente[index]->endereco, cliente[index]->codigoCliente);
     }
 }
 
