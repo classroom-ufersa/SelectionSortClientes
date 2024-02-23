@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct Clientes
+{
+    char nome[50];
+    char endereco[50];
+    int codigoCliente;
+};
+
 
 void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes)
 {
@@ -17,9 +24,7 @@ void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClient
         receberDados(cliente,arquivo,contadorClientes);
         receberCliente(cliente[(*contadorClientes+1)],arquivo,contadorClientes);
         selectionSort(cliente,contadorClientes);
-        imprimirNoArquivo(cliente,arquivo,contadorClientes);
     }
-    liberarMemoria(cliente, contadorClientes);
     // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
 }
 
