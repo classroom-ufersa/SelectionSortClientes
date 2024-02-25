@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "stdlib.h": "c",
+    "_mingw.h": "c",
+    "string.h": "c"
+  }
+}

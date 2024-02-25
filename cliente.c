@@ -4,36 +4,15 @@
 #include <string.h>
 
 
-void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
-    /*if(verificarArquivo(arquivo)==0){ //acontece normal (sem nada no arquivo)
-        (*contadorCliente)++; // 1 cliente
-        cliente = realloc(cliente, (*contadorCliente) * sizeof(Cliente *));
-        if (cliente == NULL)
-        {
-            printf("Erro\n");
-            exit(1);
-        }   
-        cliente[(*contadorCliente) - 1] = (Cliente *)malloc(sizeof(Cliente));
-        if (cliente[(*contadorCliente) - 1] == NULL)
-        {
-            printf("Erro\n");
-            exit(1);
-        }   
-        cliente[(*contadorCliente) - 1] = receberCliente(cliente[(*contadorCliente) - 1]);
-        /* COLOCAR AQUI : Funcao para liberar memoria*/
+void funcaoPrincipal(){
+    FILE *arquivo = fopen("clientes.txt", "r");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
 
-    /*}else{ // tiver linha preenchida
-        (*contadorCliente)++; // aloca pela quantidade de clientes /quant de linhas com caracteres
-        cliente = (Cliente **)realloc(cliente,(*contadorCliente)*sizeof(Cliente*));
-        if (cliente == NULL)
-        {
-            printf("Erro\n");
-            exit(1);
-        }   
-        cliente[0] = receberCliente(cliente[0]); // no primeiro espaco ficara o cliente a ser cadastrado
-        cliente=alocandoClientes(cliente,contadorCliente); // aloco o espaco necessario para cada cliente para quando for pegar apenas precisar salvar
-        /* COLOCAR AQUI : Funcao para pegar os dados do arquivo e jogar na estrutura , Funcao para liberar memoria, Funcao para imprimir no arquivo, Funcao do SelectionSort*/
-        
+    ordenarClientes(arquivo);
 }
 
 Cliente *receberCliente(Cliente * cliente)
