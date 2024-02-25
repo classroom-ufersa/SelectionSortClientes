@@ -32,3 +32,4 @@ void liberarMemoria(Cliente **cliente, int contadorClientes);
 
 /*Faz a comparação entre dois nomes de clientes, retorna 0 caso sejam iguais e caso diferente retorna um valor diferente de zero*/
 int compareClientes(const void *a, const void *b);
+

@@ -36,17 +36,15 @@ void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
     }
 }
 
-Cliente * alocandoClientes(Cliente ** cliente,int *contadorCliente){   
-    int index=0;
-    for (index = 1; index < (*contadorCliente); index++) 
-    {// a partir do 1 pois o [0] ja foi alocado 
-        cliente[index] = (Cliente*)malloc(sizeof(Cliente));
-        if (cliente[index] == NULL)
-        {
-            printf("Erro\n");
-            exit(1);
-        }   
-    }
+Cliente *receberCliente(Cliente * cliente)
+{   
+    cliente = (Cliente *)malloc(sizeof(Cliente));
+    printf("Insira o seu nome:\n");
+    scanf(" %[^\n]s", cliente->nome);
+    printf("Insira o seu endereco:\n");
+    scanf(" %[^\n]s", cliente->endereco);
+    printf("Insira o seu codigo:\n");
+    scanf("%d", &cliente->codigoCliente);
     return cliente;
 }
 
@@ -62,60 +60,47 @@ int verificarArquivo(FILE *arquivo)
     return quantidadeClientes;
 }
 
-Cliente *receberCliente(Cliente * cliente)
-{   
-    cliente = (Cliente *)malloc(sizeof(Cliente));
-    printf("Insira o seu nome:\n");
-    scanf(" %[^\n]s", cliente->nome);
-    printf("Insira o seu endereco:\n");
-    scanf(" %[^\n]s", cliente->endereco);
-    printf("Insira o seu codigo:\n");
-    scanf("%d", &cliente->codigoCliente);
-    return cliente;
-}
-
-void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes){
-    char* linhasArquivo = NULL;
-    size_t* tamanho = 0;
-    if (getline(&linhasArquivo, tamanho, arquivo) != -1)
-        {   
-            cliente = (Cliente **)realloc(cliente, (*contadorClientes + 1) * sizeof(Cliente *));
-            cliente[(*contadorClientes)] = (Cliente *)malloc((*contadorClientes + 1) * sizeof(Cliente));
-            fscanf(arquivo, " %[^,],%[^,],%d\n", cliente[(*contadorClientes)]->nome, cliente[(*contadorClientes)]->endereco, &cliente[(*contadorClientes)]->codigoCliente);
-        }
-}
-
-
-int compareClientes(const void *a, const void *b) {
-    Cliente *clienteA = (Cliente *)a;
-    Cliente *clienteB = (Cliente *)b;
-    return strcmp(clienteA->nome, clienteB->nome);
-}
 
 void ordenarClientes(FILE *arquivo) {
     rewind(arquivo);
-    Cliente *clientes = malloc(100 * sizeof(Cliente));
-    int numClientes = 0;
+    int numClientes = verificarArquivo(arquivo);
+    Cliente *clientes = (Cliente *)malloc((numClientes + 1) * sizeof(Cliente)); // Alocando memória para mais um cliente
 
-    while (fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[numClientes].nome, clientes[numClientes].endereco, &clientes[numClientes].codigo) != EOF) {
-        numClientes++;
+    // Lendo clientes do arquivo e armazenando no array
+    for (int i = 0; i < numClientes; i++) {
+        fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[i].nome, clientes[i].endereco, &clientes[i].codigoCliente);
     }
 
-   
-    qsort(clientes, numClientes, sizeof(Cliente), compareClientes);
+    // Recebendo novo cliente e adicionando ao final do array
+    clientes[numClientes] = *receberCliente();
+    numClientes++; // Incrementando o número de clientes
 
-    
+    // Selection Sort para ordenar os clientes
+    for (int i = 0; i < numClientes - 1; i++) {
+        int min_index = i;
+        for (int j = i + 1; j < numClientes; j++) {
+            if (strcmp(clientes[j].nome, clientes[min_index].nome) < 0) {
+                min_index = j;
+            }
+        }
+        if (min_index != i) {
+            Cliente temp = clientes[i];
+            clientes[i] = clientes[min_index];
+            clientes[min_index] = temp;
+        }
+    }
+
+    // Fechar o arquivo para reabri-lo em modo de escrita
     fclose(arquivo);
     arquivo = fopen("clientes.txt", "w");
 
-    
+    // Escrever os clientes ordenados de volta no arquivo
     for (int i = 0; i < numClientes; i++) {
-        fprintf(arquivo, "%s;%s;%d\n", clientes[i].nome, clientes[i].endereco, clientes[i].codigo);
+        fprintf(arquivo, "%s;%s;%d\n", clientes[i].nome, clientes[i].endereco, clientes[i].codigoCliente);
     }
 
-    
-    free(clientes);
     fclose(arquivo);
+    free(clientes); // Liberar memória alocada dinamicamente
 }
 
 void liberarMemoria(Cliente **cliente, int contadorClientes){
