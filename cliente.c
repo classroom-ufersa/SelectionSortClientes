@@ -68,7 +68,7 @@ void ordenarClientes(FILE *arquivo)
     }
 
     // Recebendo novo cliente e adicionando ao final do array
-    clientes[numClientes] = *receberCliente();
+    clientes[numClientes] = *receberCliente(clientes);
     numClientes++; // Incrementando o número de clientes
 
     // Ordenar os clientes
@@ -84,6 +84,7 @@ void ordenarClientes(FILE *arquivo)
     }
 
     fclose(arquivo);
+    liberarMemoria(clientes, numClientes);
     free(clientes); // Liberar memória alocada dinamicamente
 }
 
