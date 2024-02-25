@@ -24,23 +24,11 @@ Cliente * receberCliente(Cliente*cliente);
 /*Funcao que verifica a quantidade de linhas ocupadas retornando o valor em inteiro*/
 int verificarArquivo(FILE *arquivo);
 
-// ACIMA: nova logica   ABAIXO: logica antiga    -> esta ai para ser reaproveitada e analisada ao criar as novas funcoes
-
-
-
 /*Função que coloca os dados do arquivo em uma estrutura*/
 void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes);
 
-/*
-/*Funcao que recebe os dados do arquivo txt
-void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes);
-*/
-
 /*Fucao que ordena os nomes dos clientes pelo metodo slectionSort*/
 void ordenarClientes(FILE *arquivo);
-
-/*Imprime os dados dos clientes presentes no arquivo txt*/
-void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes);
 
 /*Libea memória do vetor de ponteiros cliente*/
 void liberarMemoria(Cliente **cliente, int contadorClientes);

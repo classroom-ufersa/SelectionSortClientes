@@ -141,15 +141,6 @@ void ordenarClientes(FILE *arquivo) {
     fclose(arquivo);
 }
 
-
-
-void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes){
-    int index=0;
-    for(index=0;index<(*contadorClientes);index++){
-        fprintf(arquivo,"Nome: %s,Endereco: %s,Codigo do Cliente: %d\n", cliente[index]->nome, cliente[index]->endereco, cliente[index]->codigoCliente);
-    }
-}
-
 void liberarMemoria(Cliente **cliente, int contadorClientes){
     int index = 0;
     for (index = 0; index < contadorClientes; index++)
