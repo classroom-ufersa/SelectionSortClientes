@@ -24,7 +24,7 @@ void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
 
     }else{ // tiver linha preenchida
         (*contadorCliente)++; // aloca pela quantidade de clientes /quant de linhas com caracteres
-        cliente = (Cliente **)malloc((*contadorCliente)*sizeof(Cliente*));
+        cliente = (Cliente **)realloc(cliente,(*contadorCliente)*sizeof(Cliente*));
         if (cliente == NULL)
         {
             printf("Erro\n");
