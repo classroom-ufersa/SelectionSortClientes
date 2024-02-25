@@ -26,8 +26,16 @@ Cliente *receberCliente()
     scanf(" %[^\n]s", cliente->nome);
     printf("Insira o seu endereco:\n");
     scanf(" %[^\n]s", cliente->endereco);
-    printf("Insira o seu codigo:\n");
-    scanf("%d", &cliente->codigoCliente);
+    int verificacaoInteiro=0;
+    do{
+        printf("Insira o seu codigo:\n");
+        verificacaoInteiro=scanf("%d", &cliente->codigoCliente);
+        if(verificacaoInteiro!=1){
+            printf("\nDigite novamente o codigo do cliente\n");
+            cliente->codigoCliente=0;
+            while(getchar()!='\n');
+        }
+    }while(verificacaoInteiro!=1);
     return cliente;
 }
 
