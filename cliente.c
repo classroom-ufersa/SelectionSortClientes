@@ -74,29 +74,6 @@ Cliente *receberCliente(Cliente * cliente)
     return cliente;
 }
 
-// realizado de acordo com a nossa discussao e analise ate aqui, a baixo esta a nossa logica anterior
-
-
-/* Criei com essa logica anterior a outra funcao que centraliza as funcoes
-
-void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClientes) 
-{
-    char* linhasArquivo = NULL;
-    size_t* tamanho = 0;
-    if(getline(&linhasArquivo, tamanho, arquivo) == -1)
-    {
-        cliente = (Cliente**) malloc(*contadorClientes+1*sizeof(Cliente*));
-        receberCliente(cliente[*contadorClientes],arquivo,contadorClientes);
-    }else
-    {
-        receberDados(cliente,arquivo,contadorClientes);
-        receberCliente(cliente[(*contadorClientes+1)],arquivo,contadorClientes);
-        selectionSort(cliente,contadorClientes);
-    }
-    // contadorClientes contem o numero de linhas que estavam preenchidas/total de clientes -> serve para (free) e para o (for) de (cadastrar cliente)
-}
-*/
-
 void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes){
     char* linhasArquivo = NULL;
     size_t* tamanho = 0;

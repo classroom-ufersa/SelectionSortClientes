@@ -24,9 +24,6 @@ Cliente * receberCliente(Cliente*cliente);
 /*Funcao que verifica a quantidade de linhas ocupadas retornando o valor em inteiro*/
 int verificarArquivo(FILE *arquivo);
 
-/*Função que coloca os dados do arquivo em uma estrutura*/
-void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes);
-
 /*Fucao que ordena os nomes dos clientes pelo metodo slectionSort*/
 void ordenarClientes(FILE *arquivo);
 
