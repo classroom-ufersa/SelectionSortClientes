@@ -13,7 +13,7 @@ struct Clientes
 
 
 /*Funcao que centraliza outras funcoes colocando condicao de arquivo vazio ou ocupado e gerenciando*/
-void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo);
+void funcaoPrincipal();
 
 /*Funcao que aloca memoria para gerar espaco na memoria para a quantidade de clientes existentes no arquivo no momento em que o arquivo foi executado e retorna a estrutura*/
 Cliente * alocandoClientes(Cliente ** cliente,int *contadorCliente);
