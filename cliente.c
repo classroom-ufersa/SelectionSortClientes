@@ -3,21 +3,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 void funcaoPrincipal(){
     FILE *arquivo = fopen("clientes.txt", "r");
     if (arquivo == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
-        return 1;
+        return;
     }
-
-    ordenarClientes(arquivo);
+    int numclientes = verificarArquivo(arquivo);
+    ordenarClientes(arquivo, numclientes);
 }
 
-Cliente *receberCliente(Cliente * cliente)
+Cliente *receberCliente()
 {   
-    cliente = (Cliente *)malloc(sizeof(Cliente));
+    Cliente *cliente = (Cliente *)malloc(sizeof(Cliente));
+    if (cliente == NULL) {
+        printf("Erro ao alocar memória para o cliente.\n");
+        exit(EXIT_FAILURE);
+    }
     printf("Insira o seu nome:\n");
     scanf(" %[^\n]s", cliente->nome);
     printf("Insira o seu endereco:\n");
@@ -29,16 +32,16 @@ Cliente *receberCliente(Cliente * cliente)
 
 int verificarArquivo(FILE *arquivo) 
 {
-    fseek(arquivo, 0, SEEK_SET);
-    char linhas[120];
+    rewind(arquivo);
+    char linhas[1000];
     int quantidadeClientes = 0;
-    while (fgets(linhas, 120, arquivo) != NULL)
+    while (fgets(linhas, sizeof(linhas), arquivo) != NULL)
     {
         quantidadeClientes++;
     }
+    rewind(arquivo);
     return quantidadeClientes;
 }
-
 
 void selectionSortClientes(Cliente *clientes, int numClientes) {
     for (int i = 0; i < numClientes - 1; i++) {
@@ -56,48 +59,38 @@ void selectionSortClientes(Cliente *clientes, int numClientes) {
     }
 }
 
-void ordenarClientes(FILE *arquivo) 
+void ordenarClientes(FILE *arquivo, int numClientes) 
 {
-    rewind(arquivo);
-    int numClientes = verificarArquivo(arquivo);
-    Cliente *clientes = (Cliente *)malloc((numClientes + 1) * sizeof(Cliente)); // Alocando memória para mais um cliente
-
-    // Lendo clientes do arquivo e armazenando no array
-    for (int i = 0; i < numClientes; i++) {
-        fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[i].nome, clientes[i].endereco, &clientes[i].codigoCliente);
+    Cliente *clientes = (Cliente *)malloc((numClientes + 1) * sizeof(Cliente)); 
+    if (clientes == NULL) {
+        printf("Erro ao alocar memória para clientes.\n");
+        exit(EXIT_FAILURE);
     }
 
-    // Recebendo novo cliente e adicionando ao final do array
-    clientes[numClientes] = *receberCliente(clientes);
-    numClientes++; // Incrementando o número de clientes
+    int j = 0;
+    while (fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[j].nome, clientes[j].endereco, &clientes[j].codigoCliente) == 3) {
+        j++;
+    }
 
-    // Ordenar os clientes
-    selectionSortClientes(clientes, numClientes);
+    clientes[j] = *receberCliente(); 
+    j++;
 
-    // Fechar o arquivo para reabri-lo em modo de escrita
+    selectionSortClientes(clientes, j);
+
     fclose(arquivo);
     arquivo = fopen("clientes.txt", "w");
 
-    // Escrever os clientes ordenados de volta no arquivo
-    for (int i = 0; i < numClientes; i++) {
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < j; i++) {
         fprintf(arquivo, "%s;%s;%d\n", clientes[i].nome, clientes[i].endereco, clientes[i].codigoCliente);
     }
 
     fclose(arquivo);
-    liberarMemoria(clientes, numClientes);
-    free(clientes); // Liberar memória alocada dinamicamente
+    free(clientes);
 }
 
-void liberarMemoria(Cliente **cliente, int contadorClientes){
-    int index = 0;
-    for (index = 0; index < contadorClientes; index++)
-    {
-        free(cliente[index]);
-    }
-    free(cliente);
-    
-}
 
-// quando for receber o novo cliente precisa reallocar contador de clientes + 1 para poder criar um espeço para vetor novo
-// cliente=(Cliente**)realloc(cliente,(contadorClientes+1)*sizeof(Cliente*));
-// cliente[contadorClientes+1]=cadastrarCliente(cliente[contadorClientes+1]);
