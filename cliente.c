@@ -5,7 +5,7 @@
 
 
 void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
-    if(verificarArquivo(arquivo)==0){ //acontece normal (sem nada no arquivo)
+    /*if(verificarArquivo(arquivo)==0){ //acontece normal (sem nada no arquivo)
         (*contadorCliente)++; // 1 cliente
         cliente = realloc(cliente, (*contadorCliente) * sizeof(Cliente *));
         if (cliente == NULL)
@@ -22,7 +22,7 @@ void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
         cliente[(*contadorCliente) - 1] = receberCliente(cliente[(*contadorCliente) - 1]);
         /* COLOCAR AQUI : Funcao para liberar memoria*/
 
-    }else{ // tiver linha preenchida
+    /*}else{ // tiver linha preenchida
         (*contadorCliente)++; // aloca pela quantidade de clientes /quant de linhas com caracteres
         cliente = (Cliente **)realloc(cliente,(*contadorCliente)*sizeof(Cliente*));
         if (cliente == NULL)
@@ -33,7 +33,7 @@ void funcaoPrincipal(Cliente ** cliente,int *contadorCliente, FILE *arquivo){
         cliente[0] = receberCliente(cliente[0]); // no primeiro espaco ficara o cliente a ser cadastrado
         cliente=alocandoClientes(cliente,contadorCliente); // aloco o espaco necessario para cada cliente para quando for pegar apenas precisar salvar
         /* COLOCAR AQUI : Funcao para pegar os dados do arquivo e jogar na estrutura , Funcao para liberar memoria, Funcao para imprimir no arquivo, Funcao do SelectionSort*/
-    }
+        
 }
 
 Cliente *receberCliente(Cliente * cliente)
@@ -61,21 +61,7 @@ int verificarArquivo(FILE *arquivo)
 }
 
 
-void ordenarClientes(FILE *arquivo) {
-    rewind(arquivo);
-    int numClientes = verificarArquivo(arquivo);
-    Cliente *clientes = (Cliente *)malloc((numClientes + 1) * sizeof(Cliente)); // Alocando memória para mais um cliente
-
-    // Lendo clientes do arquivo e armazenando no array
-    for (int i = 0; i < numClientes; i++) {
-        fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[i].nome, clientes[i].endereco, &clientes[i].codigoCliente);
-    }
-
-    // Recebendo novo cliente e adicionando ao final do array
-    clientes[numClientes] = *receberCliente();
-    numClientes++; // Incrementando o número de clientes
-
-    // Selection Sort para ordenar os clientes
+void selectionSortClientes(Cliente *clientes, int numClientes) {
     for (int i = 0; i < numClientes - 1; i++) {
         int min_index = i;
         for (int j = i + 1; j < numClientes; j++) {
@@ -89,6 +75,25 @@ void ordenarClientes(FILE *arquivo) {
             clientes[min_index] = temp;
         }
     }
+}
+
+void ordenarClientes(FILE *arquivo) 
+{
+    rewind(arquivo);
+    int numClientes = verificarArquivo(arquivo);
+    Cliente *clientes = (Cliente *)malloc((numClientes + 1) * sizeof(Cliente)); // Alocando memória para mais um cliente
+
+    // Lendo clientes do arquivo e armazenando no array
+    for (int i = 0; i < numClientes; i++) {
+        fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[i].nome, clientes[i].endereco, &clientes[i].codigoCliente);
+    }
+
+    // Recebendo novo cliente e adicionando ao final do array
+    clientes[numClientes] = *receberCliente();
+    numClientes++; // Incrementando o número de clientes
+
+    // Ordenar os clientes
+    selectionSortClientes(clientes, numClientes);
 
     // Fechar o arquivo para reabri-lo em modo de escrita
     fclose(arquivo);
