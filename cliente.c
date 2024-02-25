@@ -109,30 +109,36 @@ void receberDados(Cliente **cliente,FILE* arquivo,int *contadorClientes){
 }
 
 
+int compareClientes(const void *a, const void *b) {
+    Cliente *clienteA = (Cliente *)a;
+    Cliente *clienteB = (Cliente *)b;
+    return strcmp(clienteA->nome, clienteB->nome);
+}
 
+void ordenarClientes(FILE *arquivo) {
+    rewind(arquivo);
+    Cliente *clientes = malloc(100 * sizeof(Cliente));
+    int numClientes = 0;
 
-void selectionSort(Cliente **cliente, int *contadorClientes)
-{
-    char nomeTemporario[100];
-    int i = 0, j = 0;
-    int primeiro = 0;
-    for (i = 0; i < *contadorClientes + 1; i++)
-    {
-        primeiro = i;
-        for (j = i + 1; j < *contadorClientes; j++)
-        {
-            if (strcmp(cliente[j]->nome, cliente[primeiro]->nome) < 0)
-            {
-                primeiro = j;
-            }
-        }
-        if (primeiro != i)
-        {
-            strcpy(nomeTemporario, cliente[i]->nome);
-            strcpy(cliente[i]->nome, cliente[primeiro]->nome);
-            strcpy(cliente[primeiro]->nome, nomeTemporario);
-        }
+    while (fscanf(arquivo, "%[^;];%[^;];%d\n", clientes[numClientes].nome, clientes[numClientes].endereco, &clientes[numClientes].codigo) != EOF) {
+        numClientes++;
     }
+
+   
+    qsort(clientes, numClientes, sizeof(Cliente), compareClientes);
+
+    
+    fclose(arquivo);
+    arquivo = fopen("clientes.txt", "w");
+
+    
+    for (int i = 0; i < numClientes; i++) {
+        fprintf(arquivo, "%s;%s;%d\n", clientes[i].nome, clientes[i].endereco, clientes[i].codigo);
+    }
+
+    
+    free(clientes);
+    fclose(arquivo);
 }
 
 

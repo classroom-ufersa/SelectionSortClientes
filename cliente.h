@@ -37,10 +37,13 @@ void receberDadosDoArquivo(Cliente **cliente, FILE* arquivo, int *contadorClient
 */
 
 /*Fucao que ordena os nomes dos clientes pelo metodo slectionSort*/
-void selectionSort(Cliente **clientes, int *contadorClientes);
+void ordenarClientes(FILE *arquivo);
 
 /*Imprime os dados dos clientes presentes no arquivo txt*/
 void imprimirNoArquivo(Cliente**cliente,FILE* arquivo ,int *contadorClientes);
 
 /*Libea memória do vetor de ponteiros cliente*/
 void liberarMemoria(Cliente **cliente, int contadorClientes);
+
+/*Faz a comparação entre dois nomes de clientes, retorna 0 caso sejam iguais e caso diferente retorna um valor diferente de zero*/
+int compareClientes(const void *a, const void *b);
