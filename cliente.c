@@ -53,48 +53,19 @@ int verificarArquivo(FILE *arquivo)
 }
 
 void selectionSortClientes(Cliente *clientes, int numClientes) {
-   clock_t tempo0 = clock(); // c1, 1 vez
-    for (int i = 0; i < numClientes - 1; i++) { // c2, N-1 vezes, considerando N = numClientes
-        int min_index = i; // c3, N-1 vez
-        for (int j = i + 1; j < numClientes; j++) { // c4, (N-1)^2 vezes
-            if (strcmp(clientes[j].nome, clientes[min_index].nome) < 0) { //c5, (N-1)^2 vezes
-                min_index = j; //c6, (N-1)^2 vezes
+    for (int i = 0; i < numClientes - 1; i++) { 
+        int min_index = i; 
+        for (int j = i + 1; j < numClientes; j++) { 
+            if (strcmp(clientes[j].nome, clientes[min_index].nome) < 0) { 
+                min_index = j; 
             }
         }
-        if (min_index != i) { // c7, (N-1) vezes
-            Cliente temp = clientes[i]; // c8, (N-1) vezes
-            clientes[i] = clientes[min_index]; // c9, (N-1) vezes
-            clientes[min_index] = temp; // c10, (N-1) vezes
+        if (min_index != i) { 
+            Cliente temp = clientes[i]; 
+            clientes[i] = clientes[min_index]; 
+            clientes[min_index] = temp; 
         }
     } 
-    double tempo1 = (double)(clock() - tempo0) / CLOCKS_PER_SEC; // c11, 1 vez
-    printf("\nTempo de ordenacao: %f milissegundos\n", tempo1); // c12, 1 vez
-    
-    /*a variável tempo0 é serve para iniciar a contagem do tempo de execução do algoritmo, por isso se encontra
-    acima do código. Assim que o algoritmo for executado, a variável tempo1 vai armazenar o tempo que deu para 
-    executar esse código a partir da subtração entre o tempo inicial e tempo final.*/
-
-    /*
-    Análise da complexidade do SelectionSort
-        No pior caso: 
-        
-        T = c1 + c11 + c12 + (c2 + c3 + c7 + c8 + c9 + c10)(N-1) + (c4 + c5 + c6)(N-1)^2
-        
-        Substituindo as somas por variáveis aleatórias:
-        
-        T = c1 + c11 + c12 + a(N-1) + b(N-1)^2
-        T = aN - a + bN^2 - 2bN + b + c1 + c11 + c12
-        
-        Simplificando a expressão, eliminando os termos constantes:
-        
-        T = N + N^2 - N
-        T = N^2
-        
-        Dessa forma, conclui-se que, no pior dos casos, o tempo de execução do programa vai aumentar na pro 
-        porção de N^2. Em outros casos, o resultado não mudaria, pois os loops iriam se repetir a mesma 
-        quantidade de vezes, mesmo que os nomes já estejam todos ordenados. Portanto, a complexidade geral
-        desse algoritmo sempre será N^2.
-        */
 }
 
 void ordenarClientes(FILE *arquivo, int numClientes) 
