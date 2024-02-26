@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <time.h>
 void funcaoPrincipal(){
     FILE *arquivo = fopen("clientes.txt", "a+");
     if (arquivo == NULL)
@@ -52,6 +52,7 @@ int verificarArquivo(FILE *arquivo)
 }
 
 void selectionSortClientes(Cliente *clientes, int numClientes) {
+    clock_t tempo0 = clock();
     for (int i = 0; i < numClientes - 1; i++) { 
         int min_index = i; 
         for (int j = i + 1; j < numClientes; j++) { 
@@ -64,7 +65,10 @@ void selectionSortClientes(Cliente *clientes, int numClientes) {
             clientes[i] = clientes[min_index]; 
             clientes[min_index] = temp; 
         }
-    } 
+    }
+
+    double tempo1 = (double)(clock() - tempo0) / CLOCKS_PER_SEC;
+    printf("Tempo de ordenacao: %f milissegundos\n", tempo1); 
 }
 
 void ordenarClientes(FILE *arquivo, int numClientes) 
