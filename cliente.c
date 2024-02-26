@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h> // Para acessar a função clock() e calcular o tempo de execução de determinado código
+#include <time.h> 
 
 void funcaoPrincipal(){
     FILE *arquivo = fopen("clientes.txt", "r");
