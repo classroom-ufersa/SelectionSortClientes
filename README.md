@@ -8,7 +8,7 @@ O trabalho foi feito por 4 alunos matriculados no curso de Tecnologia da Informa
 Leandro Carlos Martins de Carvalho, Allyson da Silva Felix, Samuel Iago de Farias Cabral e Erik Thadeu Sales Praxedes.
 # Algoritmo Implementado
 SelectionSort: esse algoritmo encontra o menor elemento de um array e o coloca na posição desejada, repetindo esse mesmo processo para todos os elementos restantes. 
-Sua complexidade em relação ao tempo é O(n^2) nos piores, médios e melhores casos, já na complexidade em relação ao espaço é O(n) sendo n a variavel numClientes.
+Sua complexidade em relação ao tempo é O(n^2) nos piores, médios e melhores casos, já na complexidade em relação ao espaço é O(1) pois não há criação de variavel apenas manipulação de variaveis com vetor já existente.
 
 A seguir está um exemplo que o grupo criou de uso da SelectionSort considerando os requisitos dados:
 ```c

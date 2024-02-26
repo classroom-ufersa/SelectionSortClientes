@@ -25,6 +25,7 @@ Cliente *receberCliente()
     scanf(" %[^\n]s", cliente->nome);
     printf("Insira o seu endereco:\n");
     scanf(" %[^\n]s", cliente->endereco);
+        //
     int verificacaoInteiro=0;
     do{
         printf("Insira o seu codigo:\n");
