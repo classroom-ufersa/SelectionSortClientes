@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h> 
 
 void funcaoPrincipal(){
     FILE *arquivo = fopen("clientes.txt", "a+");
