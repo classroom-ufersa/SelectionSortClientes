@@ -5,7 +5,7 @@
 #include <time.h> 
 
 void funcaoPrincipal(){
-    FILE *arquivo = fopen("clientes.txt", "r");
+    FILE *arquivo = fopen("clientes.txt", "a+");
     if (arquivo == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
